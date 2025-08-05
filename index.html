@@ -230,16 +230,72 @@
     </div>
 
     <!-- Видео -->
-    <h2>Посмотри, как это работает</h2>
-    <div class="video-container" style="max-width: 360px; margin: 0 auto;">
-      <iframe 
-        src="https://www.youtube.com/embed/z5YNe5AG6PA"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-        style="width:100%; height:640px; border-radius: 20px;"
-      ></iframe>
+    <!-- ▶️ Видео-превью с кнопкой Play -->
+<h2>Посмотри, как это работает</h2>
+<div style="text-align:center; margin-top: 30px;">
+  <div onclick="openModal()" style="position:relative; display:inline-block; cursor:pointer;">
+    <img src="https://img.youtube.com/vi/z5YNe5AG6PA/maxresdefault.jpg" alt="Видео-превью" style="width:300px; border-radius:20px; box-shadow:0 5px 15px rgba(0,0,0,0.5); transition: transform 0.3s ease;">
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:3em; color:white; text-shadow:0 0 10px #000;">
+      ▶
     </div>
+  </div>
+</div>
+
+<!-- 🔲 Модальное окно -->
+<div id="videoModal" style="display:none; position:fixed; z-index:9999; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.9); animation: fadeIn 0.3s ease;">
+  <div id="modalContent" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); max-width:360px; width:90%; animation: slideIn 0.3s ease;">
+    <iframe id="videoFrame" width="100%" height="640" style="border-radius: 20px;" frameborder="0" allowfullscreen
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+    </iframe>
+    <button onclick="closeModal()" style="position:absolute; top:-40px; right:-10px; background:none; border:none; font-size:2.5em; color:#fff; cursor:pointer;">✕</button>
+  </div>
+</div>
+
+<!-- 💡 Анимации -->
+<style>
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+@keyframes slideIn {
+  from {transform: translate(-50%, -60%); opacity: 0;}
+  to {transform: translate(-50%, -50%); opacity: 1;}
+}
+</style>
+
+<!-- 💡 Скрипт -->
+<script>
+  function openModal() {
+    const modal = document.getElementById('videoModal');
+    const frame = document.getElementById('videoFrame');
+    modal.style.display = 'block';
+    frame.src = "https://www.youtube.com/embed/z5YNe5AG6PA?autoplay=1";
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('videoModal');
+    const frame = document.getElementById('videoFrame');
+    modal.style.display = 'none';
+    frame.src = "";
+  }
+
+  // Закрытие по клику вне окна
+  window.onclick = function(event) {
+    const modal = document.getElementById('videoModal');
+    const modalContent = document.getElementById('modalContent');
+    if (event.target === modal) {
+      closeModal();
+    }
+  }
+
+  // Закрытие по клавише Esc
+  document.addEventListener('keydown', function(event) {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+</script>
+
 
 
     <!-- Отзывы -->
