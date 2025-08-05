@@ -231,6 +231,7 @@
 
     <!-- Видео -->
     <!-- ▶️ Видео-превью с кнопкой Play -->
+<!-- ▶️ Видео-превью с кнопкой Play -->
 <h2>Посмотри, как это работает</h2>
 <div style="text-align:center; margin-top: 30px;">
   <div onclick="openModal()" style="position:relative; display:inline-block; cursor:pointer;">
@@ -244,9 +245,35 @@
 <!-- 🔲 Модальное окно -->
 <div id="videoModal" style="display:none; position:fixed; z-index:9999; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.9); animation: fadeIn 0.3s ease;">
   <div id="modalContent" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); max-width:360px; width:90%; animation: slideIn 0.3s ease;">
+
+    <!-- ВИДЕО -->
     <iframe id="videoFrame" width="100%" height="640" style="border-radius: 20px;" frameborder="0" allowfullscreen
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
     </iframe>
+
+    <!-- 🔥 Счётчик просмотров -->
+    <div style="margin-top: 12px; text-align:center; font-size: 0.95em; color: #FFD700;">
+      🔥 3,274 просмотров
+    </div>
+
+    <!-- 🔘 Кнопка Смотреть ещё -->
+    <div style="text-align:center; margin-top: 20px;">
+      <a href="https://www.youtube.com/@yourchannel" target="_blank" style="
+        display:inline-block;
+        padding: 10px 25px;
+        background-color: #FFD700;
+        color: #121212;
+        font-weight: bold;
+        font-size: 1em;
+        border-radius: 30px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      ">
+        Смотреть ещё ▶
+      </a>
+    </div>
+
+    <!-- ❌ Кнопка закрытия -->
     <button onclick="closeModal()" style="position:absolute; top:-40px; right:-10px; background:none; border:none; font-size:2.5em; color:#fff; cursor:pointer;">✕</button>
   </div>
 </div>
@@ -279,22 +306,20 @@
     frame.src = "";
   }
 
-  // Закрытие по клику вне окна
   window.onclick = function(event) {
     const modal = document.getElementById('videoModal');
-    const modalContent = document.getElementById('modalContent');
     if (event.target === modal) {
       closeModal();
     }
   }
 
-  // Закрытие по клавише Esc
   document.addEventListener('keydown', function(event) {
     if (event.key === "Escape") {
       closeModal();
     }
   });
 </script>
+
 
 
 
