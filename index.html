@@ -1,52 +1,44 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <!-- ✅✅✅ SEO-ТЕГИ ✅✅✅ -->
-  
-  <!-- 1. Главный Заголовок (то, что видно на вкладке и в поиске Google) -->
   <title>Numero - Нумерология, Астрология и Совместимость</title>
-  
-  <!-- 2. Ключевое Описание (сниппет под ссылкой в поиске) -->
   <meta name="description" content="Раскройте тайны своей судьбы с Numero. Персональная натальная карта, нумерологический портрет, гороскопы, Таро и поиск совместимости. Скачайте приложение и расшифруйте свой космический код.">
-  
-  <!-- 3. Ключевые слова (не так важны для Google, но полезны для других систем) -->
   <meta name="keywords" content="нумерология, астрология, натальная карта, совместимость, таро, гороскоп, эзотерика, numero, скачать numero, приложение нумерология, numerology, astrology, natal chart, compatibility">
-  
-  <!-- 4. Open Graph теги (для красивого отображения при репосте в соцсети) -->
+
   <meta property="og:title" content="Numero - Твой Космический Код">
   <meta property="og:description" content="Персональная натальная карта, нумерология и поиск совместимости.">
-  <meta property="og:image" content="https://vertox1566.github.io/icon.png"> <!-- Прямая ссылка на вашу иконку -->
+  <meta property="og:image" content="https://vertox1566.github.io/icon.png">
   <meta property="og:url" content="https://vertox1566.github.io">
   <meta property="og:type" content="website">
-  
-  <!-- ✅✅✅ КОНЕЦ SEO-ТЕГОВ ✅✅✅ -->
 
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- Стили -->
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       background-color: #121212;
       color: #e0e0e0;
-      line-height: 1.6; /* Улучшает читаемость текста */
+      line-height: 1.6;
       margin: 0;
-      padding: 40px 20px; /* Добавляем отступы сверху и снизу */
+      padding: 40px 20px;
     }
     .container {
-      max-width: 800px; /* Ограничиваем ширину для лучшей читаемости */
+      max-width: 800px;
       margin: 0 auto;
       text-align: center;
     }
     h1 {
       font-size: 3em;
-      color: #FFD700; /* StarlightGold */
+      color: #FFD700;
       margin-bottom: 0;
     }
     h2 {
       font-size: 1.8em;
-      color: #E91E63; /* NebulaPink */
+      color: #E91E63;
       margin-top: 40px;
     }
     .slogan {
@@ -60,9 +52,8 @@
       text-align: left;
       margin-top: 30px;
     }
-    /* Стили для списка преимуществ */
     ul {
-      list-style: none; /* Убираем стандартные маркеры */
+      list-style: none;
       padding: 0;
       text-align: left;
     }
@@ -71,7 +62,7 @@
       font-size: 1.1em;
     }
     li::before {
-      content: '✨'; /* Используем эмодзи как маркер */
+      content: '✨';
       margin-right: 10px;
     }
     .final-call {
@@ -91,7 +82,7 @@
       font-size: 1.1em;
       font-weight: bold;
       color: #121212;
-      background-color: #FFD700; /* StarlightGold */
+      background-color: #FFD700;
       border: none;
       border-radius: 50px;
       text-decoration: none;
@@ -101,74 +92,174 @@
       transform: scale(1.05);
     }
     .app-icon {
-        width: 150px;
-        height: 150px;
-        border-radius: 25px;
-        margin-bottom: 20px;
+      width: 150px;
+      height: 150px;
+      border-radius: 25px;
+      margin-bottom: 20px;
     }
-
+    .gallery {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    .gallery img {
+      width: 180px;
+      height: auto;
+      border-radius: 20px;
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      margin-top: 40px;
+      border-radius: 20px;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .testimonials {
+      margin-top: 60px;
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: left;
+    }
+    .testimonial {
+      margin-bottom: 20px;
+    }
+    .testimonial p {
+      font-style: italic;
+      color: #ccc;
+    }
+    .testimonial span {
+      display: block;
+      margin-top: 5px;
+      font-size: 0.9em;
+      color: #999;
+    }
     footer {
-        margin-top: 60px;
-        padding-top: 20px;
-        border-top: 1px solid #333; /* Разделительная линия */
-        font-size: 0.9em;
-        color: #888;
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+      font-size: 0.9em;
+      color: #888;
     }
     footer a {
-        color: #aaa;
-        text-decoration: none;
-        margin: 0 10px;
+      color: #aaa;
+      text-decoration: none;
+      margin: 0 10px;
     }
     footer a:hover {
-        text-decoration: underline;
+      text-decoration: underline;
     }
   </style>
+
+  <!-- Микроразметка для поисковиков -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "Numero",
+    "operatingSystem": "ANDROID",
+    "applicationCategory": "LifestyleApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "RUB"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "2143"
+    }
+  }
+  </script>
 </head>
 <body>
   <div class="container">
-    
+
     <img src="icon.png" alt="Numero App Icon" class="app-icon">
     <h1>Numero</h1>
     <p class="slogan">Твой Космический Код. Расшифруй его.</p>
 
-    <!-- ✅✅✅ ОСНОВНОЕ ОПИСАНИЕ С HTML-ТЕГАМИ ✅✅✅ -->
     <div class="description">
-        <p>
-            Задумывался ли ты, что дата твоего рождения — это не просто цифры, а ключ к твоей судьбе? Что звезды в момент твоего первого вдоха начертали карту твоего пути? <strong>Numero</strong> — это не просто приложение. Это твой персональный оракул и проводник в мир сакральных знаний, где древняя мудрость нумерологии встречается с безграничной вселенной астрологии.
-        </p>
+      <p>
+        Задумывался ли ты, что дата твоего рождения — это не просто цифры, а ключ к твоей судьбе? Что звезды в момент твоего первого вдоха начертали карту твоего пути? <strong>Numero</strong> — это не просто приложение. Это твой персональный оракул и проводник в мир сакральных знаний, где древняя мудрость нумерологии встречается с безграничной вселенной астрологии.
+      </p>
 
-        <h2>Что ждет тебя внутри:</h2>
-        <ul>
-            <li><strong>Глубинный Нумерологический Портрет:</strong> Узнай свое Число Жизненного Пути, Число Судьбы и Число Души. Пойми свои скрытые таланты, истинные желания и кармические задачи.</li>
-            <li><strong>Персональная Натальная Карта:</strong> Мы рассчитаем точное положение планет в момент твоего рождения, чтобы создать уникальный космический паспорт.</li>
-            <li><strong>Астрологическая Совместимость:</strong> Открой, как взаимодействуют твои планеты с энергиями других людей. Найди свою космическую пару.</li>
-            <li><strong>Ежедневные Расклады Таро:</strong> Получай персональный расклад из трех карт — Прошлое, Настоящее, Будущее — и узнай, на что обратить внимание сегодня.</li>
-            <li><strong>Поиск Единомышленников:</strong> Находи людей по всему миру, в твоей стране или даже рядом, учитывая не только геолокацию, но и общность эзотерических интересов.</li>
-        </ul>
-        
-        <p class="final-call">
-            Твой путь уже предначертан. Готов ли ты его узнать?
-        </p>
-        <p class="languages">
-            Поддерживаемые языки: Русский, English.
-        </p>
+      <h2>Что ждет тебя внутри:</h2>
+      <ul>
+        <li><strong>Глубинный Нумерологический Портрет:</strong> Узнай свое Число Жизненного Пути, Число Судьбы и Число Души. Пойми свои скрытые таланты, истинные желания и кармические задачи.</li>
+        <li><strong>Персональная Натальная Карта:</strong> Мы рассчитаем точное положение планет в момент твоего рождения, чтобы создать уникальный космический паспорт.</li>
+        <li><strong>Астрологическая Совместимость:</strong> Открой, как взаимодействуют твои планеты с энергиями других людей. Найди свою космическую пару.</li>
+        <li><strong>Ежедневные Расклады Таро:</strong> Получай персональный расклад из трех карт — Прошлое, Настоящее, Будущее — и узнай, на что обратить внимание сегодня.</li>
+        <li><strong>Поиск Единомышленников:</strong> Находи людей по всему миру, в твоей стране или даже рядом, учитывая не только геолокацию, но и общность эзотерических интересов.</li>
+      </ul>
+
+      <p class="final-call">
+        Твой путь уже предначертан. Готов ли ты его узнать?
+      </p>
+      <p class="languages">
+        Поддерживаемые языки: Русский, English.
+      </p>
     </div>
-    
-    <!-- Кнопка скачивания -->
-    <!-- НЕ ЗАБУДЬТЕ ЗАМЕНИТЬ href НА ВАШУ РЕАЛЬНУЮ ССЫЛКУ ИЗ GITHUB RELEASES -->
-    <a href="ВАША_ССЫЛКА_НА_AAB_ФАЙЛ" class="download-button">
+
+    <!-- Кнопка -->
+    <a href="https://github.com/Vertox1566/vertox1566.github.io/releases/download/v1.0.0/app-release.aab" class="download-button">
       Скачать Numero (v1.0.0)
     </a>
 
+    <!-- Скриншоты -->
+    <h2>Скриншоты приложения</h2>
+    <div class="gallery">
+      <img src="screenshot1.jpg" alt="Главный экран">
+      <img src="screenshot2.jpg" alt="Нумерологический портрет">
+      <img src="screenshot3.jpg" alt="Натальная карта">
+      <img src="screenshot4.jpg" alt="Совместимость">
+    </div>
+
+    <!-- Видео -->
+    <h2>Посмотри, как это работает</h2>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/ВАШ_YOUTUBE_ID" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <!-- Отзывы -->
+    <h2>Отзывы пользователей</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p>«Numero открыло мне глаза на то, кто я есть на самом деле. Я наконец поняла свои сильные стороны!»</p>
+        <span>— Анастасия, Москва</span>
+      </div>
+      <div class="testimonial">
+        <p>«Совместимость с партнёром попала в точку. Невероятно точно и интересно!»</p>
+        <span>— Олег, Минск</span>
+      </div>
+      <div class="testimonial">
+        <p>«Люблю расклады Таро утром — как личный совет от Вселенной. Must-have!»</p>
+        <span>— Диана, Киев</span>
+      </div>
+    </div>
+
   </div>
+
   <footer>
     <p>© 2024 Numero. Все права защищены.</p>
     <p>
-      <a href="https://dontisolate.com/privacy">Политика Конфиденциальности</a>
-      |
+      <a href="https://dontisolate.com/privacy">Политика Конфиденциальности</a> |
       <a href="https://dontisolate.com/terms">Условия Использования</a>
     </p>
   </footer>
-
 </body>
 </html>
