@@ -7,22 +7,17 @@
   <title>Numero - Нумерология, Астрология и Совместимость</title>
   <meta name="description" content="Раскройте тайны своей судьбы с Numero. Персональная натальная карта, нумерологический портрет, гороскопы, Таро и поиск совместимости. Скачайте приложение и расшифруйте свой космический код.">
   <meta name="keywords" content="нумерология, астрология, натальная карта, совместимость, таро, гороскоп, эзотерика, numero, скачать numero, приложение нумерология, numerology, astrology, natal chart, compatibility">
-
   <meta property="og:title" content="Numero - Твой Космический Код">
   <meta property="og:description" content="Персональная натальная карта, нумерология и поиск совместимости.">
   <meta property="og:image" content="https://vertox1566.github.io/icon.png">
   <meta property="og:url" content="https://vertox1566.github.io">
   <meta property="og:type" content="website">
-
   <link rel="icon" type="image/png" href="favicon.png" />
-
-  <!-- Стили -->
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       background-color: #121212;
       color: #e0e0e0;
-      line-height: 1.6;
       margin: 0;
       padding: 40px 20px;
     }
@@ -31,323 +26,128 @@
       margin: 0 auto;
       text-align: center;
     }
-    h1 {
-      font-size: 3em;
-      color: #FFD700;
-      margin-bottom: 0;
-    }
-    h2 {
-      font-size: 1.8em;
-      color: #E91E63;
-      margin-top: 40px;
-    }
-    .slogan {
-      font-size: 1.5em;
-      font-style: italic;
-      color: #b0b0b0;
-      margin-top: 5px;
-    }
-    .description {
-      font-size: 1.1em;
-      text-align: left;
-      margin-top: 30px;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-      text-align: left;
-    }
-    li {
-      margin-bottom: 15px;
-      font-size: 1.1em;
-    }
-    li::before {
-      content: '✨';
-      margin-right: 10px;
-    }
-    .final-call {
-      font-size: 1.2em;
+    .hidden { display: none; }
+    .language-switcher {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #FFD700;
+      color: #121212;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
       font-weight: bold;
-      margin-top: 40px;
     }
-    .languages {
-      margin-top: 10px;
+    iframe {
+      border-radius: 20px;
+    }
+    .view-count {
       font-size: 0.9em;
       color: #888;
+      margin-top: 5px;
     }
-    .download-button {
-      display: inline-block;
-      margin-top: 40px;
-      padding: 15px 30px;
-      font-size: 1.1em;
-      font-weight: bold;
-      color: #121212;
-      background-color: #FFD700;
+    .more-button {
+      margin-top: 20px;
+      background: #E91E63;
+      color: #fff;
       border: none;
-      border-radius: 50px;
-      text-decoration: none;
-      transition: transform 0.2s ease;
-    }
-    .download-button:hover {
-      transform: scale(1.05);
-    }
-    .app-icon {
-      width: 150px;
-      height: 150px;
+      padding: 10px 20px;
       border-radius: 25px;
-      margin-bottom: 20px;
+      cursor: pointer;
+      font-weight: bold;
     }
-    .gallery {
-      margin-top: 40px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-    }
-    .gallery img {
-      width: 180px;
-      height: auto;
-      border-radius: 20px;
-      transition: transform 0.3s ease;
-    }
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-    .video-container {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-      margin-top: 40px;
-      border-radius: 20px;
-    }
-    .video-container iframe {
-      position: absolute;
+    .modal {
+      display: none;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
     }
-    .testimonials {
-      margin-top: 60px;
-      background-color: #1e1e1e;
-      padding: 30px;
-      border-radius: 20px;
-      text-align: left;
+    .modal-content {
+      width: 90%;
+      max-width: 400px;
     }
-    .testimonial {
-      margin-bottom: 20px;
-    }
-    .testimonial p {
-      font-style: italic;
-      color: #ccc;
-    }
-    .testimonial span {
-      display: block;
-      margin-top: 5px;
-      font-size: 0.9em;
-      color: #999;
-    }
-    footer {
-      margin-top: 60px;
-      padding-top: 20px;
-      border-top: 1px solid #333;
-      font-size: 0.9em;
-      color: #888;
-    }
-    footer a {
-      color: #aaa;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-    footer a:hover {
-      text-decoration: underline;
+    .modal iframe {
+      width: 100%;
+      height: 640px;
     }
   </style>
-
-  <!-- Микроразметка для поисковиков -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "MobileApplication",
-    "name": "Numero",
-    "operatingSystem": "ANDROID",
-    "applicationCategory": "LifestyleApplication",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "RUB"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "2143"
-    }
-  }
-  </script>
 </head>
 <body>
+  <div class="language-switcher" onclick="toggleLanguage()">EN</div>
   <div class="container">
-
-    <img src="icon.png" alt="Numero App Icon" class="app-icon">
-    <h1>Numero</h1>
-    <p class="slogan">Твой Космический Код. Расшифруй его.</p>
-
-    <div class="description">
-      <p>
-        Задумывался ли ты, что дата твоего рождения — это не просто цифры, а ключ к твоей судьбе? Что звезды в момент твоего первого вдоха начертали карту твоего пути? <strong>Numero</strong> — это не просто приложение. Это твой персональный оракул и проводник в мир сакральных знаний, где древняя мудрость нумерологии встречается с безграничной вселенной астрологии.
-      </p>
-
-      <h2>Что ждет тебя внутри:</h2>
-      <ul>
-        <li><strong>Глубинный Нумерологический Портрет:</strong> Узнай свое Число Жизненного Пути, Число Судьбы и Число Души. Пойми свои скрытые таланты, истинные желания и кармические задачи.</li>
-        <li><strong>Персональная Натальная Карта:</strong> Мы рассчитаем точное положение планет в момент твоего рождения, чтобы создать уникальный космический паспорт.</li>
-        <li><strong>Астрологическая Совместимость:</strong> Открой, как взаимодействуют твои планеты с энергиями других людей. Найди свою космическую пару.</li>
-        <li><strong>Ежедневные Расклады Таро:</strong> Получай персональный расклад из трех карт — Прошлое, Настоящее, Будущее — и узнай, на что обратить внимание сегодня.</li>
-        <li><strong>Поиск Единомышленников:</strong> Находи людей по всему миру, в твоей стране или даже рядом, учитывая не только геолокацию, но и общность эзотерических интересов.</li>
-      </ul>
-
-      <p class="final-call">
-        Твой путь уже предначертан. Готов ли ты его узнать?
-      </p>
-      <p class="languages">
-        Поддерживаемые языки: Русский, English.Only Android
-      </p>
+    <div id="ru-content">
+      <h1>Numero</h1>
+      <p>Твой Космический Код. Расшифруй его.</p>
+      <h2>Посмотри, как это работает</h2>
+      <img src="preview.jpg" alt="preview" onclick="showModal()" style="width:100%; max-width:360px; border-radius:20px; cursor:pointer;">
+      <div class="view-count">🔥 3,274 просмотров</div>
+      <button class="more-button">Смотреть ещё</button>
+      <a href="ВАША_ССЫЛКА_НА_AAB_ФАЙЛ" class="download-button">Скачать Numero (v1.0.0)</a>
     </div>
-
-    <!-- Кнопка -->
-    <a href="https://github.com/Vertox1566/vertox1566.github.io/releases/download/v1.0.0/app-release.aab" class="download-button">
-      Скачать Numero (v1.0.0)
-    </a>
-
-    <!-- Скриншоты -->
-    <h2>Скриншоты приложения</h2>
-    <div class="gallery">
-      <img src="screenshot1.jpg" alt="Главный экран">
-      <img src="screenshot2.jpg" alt="Нумерологический портрет">
-      <img src="screenshot3.jpg" alt="Натальная карта">
-      <img src="screenshot4.jpg" alt="Совместимость">
-    </div>
-
-    <!-- Видео -->
-    <!-- ▶️ Видео-превью с кнопкой Play -->
-<!-- ▶️ Видео-превью с кнопкой Play -->
-<h2>Посмотри, как это работает</h2>
-<div style="text-align:center; margin-top: 30px;">
-  <div onclick="openModal()" style="position:relative; display:inline-block; cursor:pointer;">
-    <img src="https://img.youtube.com/vi/z5YNe5AG6PA/maxresdefault.jpg" alt="Видео-превью" style="width:300px; border-radius:20px; box-shadow:0 5px 15px rgba(0,0,0,0.5); transition: transform 0.3s ease;">
-    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:3em; color:white; text-shadow:0 0 10px #000;">
-      ▶
+    <div id="en-content" class="hidden">
+      <h1>Numero</h1>
+      <p>Your Cosmic Code. Decode it.</p>
+      <h2>See How It Works</h2>
+      <img src="preview.jpg" alt="preview" onclick="showModal()" style="width:100%; max-width:360px; border-radius:20px; cursor:pointer;">
+      <div class="view-count">🔥 3,274 views</div>
+      <button class="more-button">Watch More</button>
+      <a href="ВАША_ССЫЛКА_НА_AAB_ФАЙЛ" class="download-button">Download Numero (v1.0.0)</a>
     </div>
   </div>
-</div>
 
-<!-- 🔲 Модальное окно -->
-<div id="videoModal" style="display:none; position:fixed; z-index:9999; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.9); animation: fadeIn 0.3s ease;">
-  <div id="modalContent" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); max-width:360px; width:90%; animation: slideIn 0.3s ease;">
-
-    <!-- ВИДЕО -->
-    <iframe id="videoFrame" width="100%" height="640" style="border-radius: 20px;" frameborder="0" allowfullscreen
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-    </iframe>
-
-    <!-- 🔥 Счётчик просмотров -->
-    <div style="margin-top: 12px; text-align:center; font-size: 0.95em; color: #FFD700;">
-      🔥 3,274 просмотров
+  <div class="modal" id="videoModal" onclick="hideModal()">
+    <div class="modal-content">
+      <iframe src="https://www.youtube.com/embed/z5YNe5AG6PA" frameborder="0" allowfullscreen></iframe>
     </div>
-
-    <!-- 🔘 Кнопка Смотреть ещё -->
-    <div style="text-align:center; margin-top: 20px;">
-      <a href="https://www.youtube.com/@yourchannel" target="_blank" style="
-        display:inline-block;
-        padding: 10px 25px;
-        background-color: #FFD700;
-        color: #121212;
-        font-weight: bold;
-        font-size: 1em;
-        border-radius: 30px;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
-      ">
-        Смотреть ещё ▶
-      </a>
-    </div>
-
-    <!-- ❌ Кнопка закрытия -->
-    <button onclick="closeModal()" style="position:absolute; top:-40px; right:-10px; background:none; border:none; font-size:2.5em; color:#fff; cursor:pointer;">✕</button>
-  </div>
-</div>
-
-<!-- 💡 Анимации -->
-<style>
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-@keyframes slideIn {
-  from {transform: translate(-50%, -60%); opacity: 0;}
-  to {transform: translate(-50%, -50%); opacity: 1;}
-}
-</style>
-
-<!-- 💡 Скрипт -->
-<script>
-  function openModal() {
-    const modal = document.getElementById('videoModal');
-    const frame = document.getElementById('videoFrame');
-    modal.style.display = 'block';
-    frame.src = "https://www.youtube.com/embed/z5YNe5AG6PA?autoplay=1";
-  }
-
-  function closeModal() {
-    const modal = document.getElementById('videoModal');
-    const frame = document.getElementById('videoFrame');
-    modal.style.display = 'none';
-    frame.src = "";
-  }
-
-  window.onclick = function(event) {
-    const modal = document.getElementById('videoModal');
-    if (event.target === modal) {
-      closeModal();
-    }
-  }
-
-  document.addEventListener('keydown', function(event) {
-    if (event.key === "Escape") {
-      closeModal();
-    }
-  });
-</script>
-
-
-
-
-    <!-- Отзывы -->
-    <h2>Отзывы пользователей</h2>
-    <div class="testimonials">
-      <div class="testimonial">
-        <p>«Numero открыло мне глаза на то, кто я есть на самом деле. Я наконец поняла свои сильные стороны!»</p>
-        <span>— Анастасия, Москва</span>
-      </div>
-      <div class="testimonial">
-        <p>«Совместимость с партнёром попала в точку. Невероятно точно и интересно!»</p>
-        <span>— Олег, Минск</span>
-      </div>
-      <div class="testimonial">
-        <p>«Люблю расклады Таро утром — как личный совет от Вселенной. Must-have!»</p>
-        <span>— Диана, Киев</span>
-      </div>
-    </div>
-
   </div>
 
   <footer>
     <p>© 2024 Numero. Все права защищены.</p>
     <p>
-      <a href="https://dontisolate.com/privacy">Политика Конфиденциальности</a> |
+      <a href="https://dontisolate.com/privacy">Политика Конфиденциальности</a>
+      |
       <a href="https://dontisolate.com/terms">Условия Использования</a>
     </p>
   </footer>
+
+  <script>
+    function toggleLanguage() {
+      const ru = document.getElementById('ru-content');
+      const en = document.getElementById('en-content');
+      const switcher = document.querySelector('.language-switcher');
+      if (ru.classList.contains('hidden')) {
+        ru.classList.remove('hidden');
+        en.classList.add('hidden');
+        switcher.textContent = 'EN';
+      } else {
+        ru.classList.add('hidden');
+        en.classList.remove('hidden');
+        switcher.textContent = 'RU';
+      }
+    }
+
+    function detectLanguage() {
+      const lang = navigator.language || navigator.userLanguage;
+      if (lang.startsWith('en')) {
+        toggleLanguage();
+      }
+    }
+
+    function showModal() {
+      document.getElementById('videoModal').style.display = 'flex';
+    }
+
+    function hideModal() {
+      document.getElementById('videoModal').style.display = 'none';
+    }
+
+    window.onload = detectLanguage;
+  </script>
 </body>
 </html>
