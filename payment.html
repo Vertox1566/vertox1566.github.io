@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <style>
+        body { margin: 0; background-color: #121212; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        #payment-form { width: 100%; max-width: 400px; }
+    </style>
+</head>
+<body>
+
+    <div id="payment-form"></div>
+
+    <script type="text/javascript" src="https://www.payanyway.ru/assistant-builder"></script>
+    <script type="text/javascript">
+        // Интерфейс для связи с Android-приложением
+        const AndroidInterface = window.AndroidInterface;
+
+        // Функция для получения параметров из URL (?param1=value1&...)
+        function getUrlParams() {
+            const params = {};
+            new URLSearchParams(window.location.search).forEach((value, key) => {
+                params[key] = value;
+            });
+            return params;
+        }
+
+        // --- ОСНОВНАЯ ЛОГИКА ---
+        try {
+            const params = getUrlParams();
+
+            // Проверяем, что все нужные параметры пришли из Android-приложения
+            if (!params.account || !params.amount || !params.transactionId || !params.signature) {
+                throw new Error("Missing required payment parameters in URL.");
+            }
+
+            const options = {
+                account: parseInt(params.account, 10),
+                amount: parseFloat(params.amount),
+                transactionId: params.transactionId,
+                signature: params.signature, // Подпись обязательна для Assistant
+                description: params.description || 'Numero PRO Status',
+                theme: 'dark', // Используем темную тему
+                lang: params.lang || 'ru'
+            };
+
+            const assistant = new Assistant.Builder();
+
+            // Обработчик успешной оплаты
+            assistant.setOnSuccessCallback(function(operationId, transactionId) {
+                // Если есть интерфейс Android, вызываем его метод
+                if (AndroidInterface && typeof AndroidInterface.onPaymentSuccess === 'function') {
+                    AndroidInterface.onPaymentSuccess(operationId, transactionId);
+                } else {
+                    // Запасной вариант, если что-то пошло не так
+                    alert('Payment successful!');
+                }
+            });
+
+            // Обработчик ошибки
+            assistant.setOnFailCallback(function(operationId, transactionId) {
+                if (AndroidInterface && typeof AndroidInterface.onPaymentFail === 'function') {
+                    AndroidInterface.onPaymentFail(operationId, transactionId);
+                } else {
+                    alert('Payment failed.');
+                }
+            });
+
+            // Строим форму
+            assistant.build(options, 'payment-form');
+
+        } catch (error) {
+            console.error("Payment form initialization failed:", error);
+            document.body.innerHTML = `<h3 style="color: white; text-align: center;">Error: ${error.message}</h3>`;
+        }
+    </script>
+
+</body>
+</html>
