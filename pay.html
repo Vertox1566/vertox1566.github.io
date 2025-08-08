@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Payment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background-color: #121212; }
+    #robokassa-payment-form { width: 100%; max-width: 400px; }
+  </style>
+</head>
+<body>
+  <div id="robokassa-payment-form"></div>
+  <script>
+    // Функция для получения параметра из URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+    
+    // Получаем EncodedInvoiceId из URL
+    const invoiceId = getQueryParam('invoice');
+    
+    if (invoiceId) {
+      // Если ID есть, создаем и вставляем скрипт
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = `https://auth.robokassa.ru/Merchant/PaymentForm/FormSS.js?EncodedInvoiceId=${invoiceId}&Culture=ru`;
+      document.getElementById('robokassa-payment-form').appendChild(script);
+    } else {
+      // Если ID нет, показываем ошибку
+      document.body.innerHTML = '<h2 style="color: white;">Error: Payment details not found.</h2>';
+    }
+  </script>
+</body>
+</html>
