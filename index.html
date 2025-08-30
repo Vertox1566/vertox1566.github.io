@@ -4,7 +4,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+  <script type="text/javascript">
+    (function() {
+      // 1. Получаем путь из URL (например, "/c/taro_daily")
+      const path = window.location.pathname;
+      const pathSegments = path.split('/').filter(Boolean); // ['c', 'taro_daily']
+      
+      // 2. Проверяем, является ли это ссылкой на канал или группу
+      if (pathSegments.length === 2 && (pathSegments[0] === 'c' || pathSegments[0] === 'g')) {
+        const type = pathSegments[0]; // 'c' для канала, 'g' для группы
+        const handle = pathSegments[1]; // 'taro_daily'
+        
+        // 3. Определяем ОС пользователя
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const playStoreUrl = "https://play.google.com/store/apps/details?id=com.example.lovequest"; // <-- ЗАМЕНИ НА СВОЙ PACKAGE NAME
+        const appGalleryUrl = "appgallery://details?id=com.example.lovequest"; // <-- И ЗДЕСЬ ТОЖЕ
+
+        // 4. Выполняем редирект
+        if (/android/i.test(userAgent)) {
+          // Для Android генерируем Deep Link
+          let deepLinkPath = '';
+          if (type === 'c') {
+            deepLinkPath = `/channel/${handle}`;
+          } else if (type === 'g') {
+            deepLinkPath = `/group/${handle}`;
+          }
+          
+          const deepLink = `intent://vertox1566.github.io${deepLinkPath}#Intent;scheme=https;package=com.example.lovequest;S.browser_fallback_url=${encodeURIComponent(playStoreUrl)};end`;
+          window.location.href = deepLink;
+
+        } else if (/huawei/i.test(userAgent)) {
+           // Отдельная логика для Huawei, если нужно
+           window.location.href = appGalleryUrl;
+
+        } else {
+          // Для iOS и ПК - просто редирект в Google Play (или на страницу с выбором)
+          window.location.href = playStoreUrl;
+        }
+        
+        // Предотвращаем загрузку остальной части страницы
+        // document.write("Redirecting..."); // Можно раскомментировать для отладки
+        throw new Error("Redirecting...");
+      }
+    })();
+  </script>
   <!-- Заголовок и мета-теги будут управляться через JS -->
   <title data-lang-key="meta_title">Numero - Нумерология, Астрология и Совместимость</title>
   <meta id="meta-description" name="description" content="Раскройте тайны своей судьбы с Numero. Персональная натальная карта, нумерологический портрет, гороскопы, Таро и поиск совместимости. Скачайте приложение и расшифруйте свой космический код." data-lang-key="meta_description">
