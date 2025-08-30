@@ -5,54 +5,43 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script type="text/javascript">
-  (function() {
-    // 1. Получаем путь из URL (например, "/c/taro_daily")
-    const path = window.location.pathname;
-    const pathSegments = path.split('/').filter(Boolean);
-    
-    // 2. Проверяем, является ли это ссылкой на канал или группу
-    if (pathSegments.length === 2 && (pathSegments[0] === 'c' || pathSegments[0] === 'g')) {
-      const type = pathSegments[0];
-      const handle = pathSegments[1];
-      
-      const packageName = "com.example.lovequest"; // Твой реальный package name
-      
-      // --- Ссылки на магазины ---
-      const appGalleryUrl = `appgallery://details?id=${packageName}`;
-      const ruStoreUrl = `rustore://apps.rustore.ru/app/${packageName}`;
-      // const playStoreUrl = `https://play.google.com/store/apps/details?id=${packageName}`; // <-- Закомментировано на будущее
-      
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      
-      // 3. Выбираем Fallback URL (куда отправить, если приложение не установлено)
-      let fallbackUrl;
-      if (/huawei/i.test(userAgent)) {
-        // Если это Huawei, отправляем в AppGallery
-        fallbackUrl = appGalleryUrl;
-      } else {
-        // Для всех остальных Android-устройств отправляем в RuStore
-        fallbackUrl = ruStoreUrl;
-      }
-      
-      // 4. Генерируем Deep Link
-      let deepLinkPath = '';
-      if (type === 'c') {
-        deepLinkPath = `/channel/${handle}`;
-      } else if (type === 'g') {
-        deepLinkPath = `/group/${handle}`;
-      }
-      
-      // Создаем универсальную Intent-ссылку, которая использует наш выбранный fallback
-      const deepLink = `intent://vertox1566.github.io${deepLinkPath}#Intent;scheme=https;package=${packageName};S.browser_fallback_url=${encodeURIComponent(fallbackUrl)};end`;
-      
-      // 5. Выполняем редирект
-      window.location.href = deepLink;
+    (function() {
+      // 1. Определяем параметры из URL
+      const path = window.location.pathname; // например, "/c/taro_daily"
+      const handle = path.split('/').pop();  // получаем "taro_daily"
+      const packageName = "com.example.lovequest";
 
-      // Предотвращаем загрузку остальной части страницы
-      throw new Error("Redirecting...");
-    }
-  })();
-</script>
+      // 2. Ссылки на магазины приложений
+      const appGalleryUrl = `https://appgallery.huawei.com/app/C10...`; // <-- ВАЖНО: Укажите реальный ID вашего приложения в AppGallery
+      const ruStoreUrl = `https://apps.rustore.ru/app/${packageName}`;
+
+      // 3. Пытаемся открыть приложение через кастомную схему
+      // (Это запасной вариант, основная магия - App Links)
+      window.location.href = `lovequest://c/${handle}`;
+
+      // 4. Логика "Fallback" - что делать, если приложение не открылось
+      setTimeout(function() {
+        // Если через 2 секунды пользователь все еще на этой странице,
+        // значит, приложение не установлено.
+        
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        let storeUrl;
+        
+        // Определяем, куда перенаправить
+        if (/huawei/i.test(userAgent)) {
+          // Если это устройство Huawei, отправляем в AppGallery
+          storeUrl = appGalleryUrl;
+        } else {
+          // Для всех остальных Android — в RuStore
+          storeUrl = ruStoreUrl;
+        }
+        
+        // Перенаправляем пользователя в нужный магазин
+        window.location.href = storeUrl;
+        
+      }, 2000); // Задержка в 2 секунды
+    })();
+  </script>
   <!-- Заголовок и мета-теги будут управляться через JS -->
   <title data-lang-key="meta_title">Numero - Нумерология, Астрология и Совместимость</title>
   <meta id="meta-description" name="description" content="Раскройте тайны своей судьбы с Numero. Персональная натальная карта, нумерологический портрет, гороскопы, Таро и поиск совместимости. Скачайте приложение и расшифруйте свой космический код." data-lang-key="meta_description">
