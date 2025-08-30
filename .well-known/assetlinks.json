@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.example.lovequest",
+    "sha256_cert_fingerprints":
+    ["1A:8E:30:3B:49:5E:26:91:A6:DF:5D:45:0C:1F:89:9C:30:2D:E8:33:3C:CF:5A:1F:4E:49:2C:B6:7F:1D:1A:6F"]
+  }
+}]
