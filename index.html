@@ -6,40 +6,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script type="text/javascript">
     (function() {
-      // 1. Определяем параметры из URL
-      const path = window.location.pathname; // например, "/c/taro_daily"
-      const handle = path.split('/').pop();  // получаем "taro_daily"
-      const packageName = "com.example.lovequest";
+      // Получаем путь из URL, например, "/c/taro_daily" или просто "/"
+      const path = window.location.pathname;
+      
+      // ✅ ГЛАВНОЕ ИЗМЕНЕНИЕ: Запускаем логику только для ссылок на каналы!
+      if (path.startsWith('/c/')) {
+        const handle = path.substring(3); // Извлекаем handle: "taro_daily"
+        const packageName = "com.example.lovequest";
 
-      // 2. Ссылки на магазины приложений
-      const appGalleryUrl = `https://appgallery.huawei.com/app/C10...`; // <-- ВАЖНО: Укажите реальный ID вашего приложения в AppGallery
-      const ruStoreUrl = `https://apps.rustore.ru/app/${packageName}`;
+        // Ссылки на магазины приложений
+        // ВАЖНО: Замени ID на реальный ID твоего приложения в AppGallery!
+        const appGalleryUrl = `https://appgallery.huawei.com/app/C10...`; 
+        const ruStoreUrl = `https://apps.rustore.ru/app/${packageName}`;
 
-      // 3. Пытаемся открыть приложение через кастомную схему
-      // (Это запасной вариант, основная магия - App Links)
-      window.location.href = `lovequest://c/${handle}`;
+        // Пытаемся открыть приложение через кастомную схему.
+        // Это запасной вариант, если App Links не сработали.
+        window.location.href = `lovequestapp://c/${handle}`;
 
-      // 4. Логика "Fallback" - что делать, если приложение не открылось
-      setTimeout(function() {
-        // Если через 2 секунды пользователь все еще на этой странице,
-        // значит, приложение не установлено.
-        
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        let storeUrl;
-        
-        // Определяем, куда перенаправить
-        if (/huawei/i.test(userAgent)) {
-          // Если это устройство Huawei, отправляем в AppGallery
-          storeUrl = appGalleryUrl;
-        } else {
-          // Для всех остальных Android — в RuStore
-          storeUrl = ruStoreUrl;
-        }
-        
-        // Перенаправляем пользователя в нужный магазин
-        window.location.href = storeUrl;
-        
-      }, 2000); // Задержка в 2 секунды
+        // Логика перенаправления, если приложение не открылось
+        setTimeout(function() {
+          // Если через 2.5 секунды пользователь все еще на этой странице,
+          // значит, приложение не установлено.
+          
+          const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+          
+          // ✅ УЛУЧШЕНИЕ: Проверяем, что это Android, чтобы не перенаправлять пользователей с ПК или iPhone
+          if (/android/i.test(userAgent)) {
+            let storeUrl;
+            
+            if (/huawei/i.test(userAgent)) {
+              // Это устройство Huawei -> отправляем в AppGallery
+              storeUrl = appGalleryUrl;
+            } else {
+              // Любой другой Android -> отправляем в RuStore
+              storeUrl = ruStoreUrl;
+            }
+            
+            // Перенаправляем пользователя в нужный магазин
+            window.location.href = storeUrl;
+          }
+          
+        }, 2500); // Задержка в 2.5 секунды
+      }
+      // Если path не начинается с /c/, скрипт просто ничего не делает, и лендинг загружается как обычно.
     })();
   </script>
   <!-- Заголовок и мета-теги будут управляться через JS -->
