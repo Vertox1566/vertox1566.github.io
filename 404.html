@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<!-- Начальный язык будет установлен скриптом -->
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script type="text/javascript">
+    (function() {
+      // Получаем путь из URL, например, "/c/taro_daily" или просто "/"
+      const path = window.location.pathname;
+      
+      // ✅ ГЛАВНОЕ ИЗМЕНЕНИЕ: Запускаем логику только для ссылок на каналы!
+      if (path.startsWith('/c/')) {
+        const handle = path.substring(3); // Извлекаем handle: "taro_daily"
+        const packageName = "com.example.lovequest";
+
+        // Ссылки на магазины приложений
+        // ВАЖНО: Замени ID на реальный ID твоего приложения в AppGallery!
+        const appGalleryUrl = `https://appgallery.huawei.com/app/C10...`; 
+        const ruStoreUrl = `https://apps.rustore.ru/app/${packageName}`;
+
+        // Пытаемся открыть приложение через кастомную схему.
+        // Это запасной вариант, если App Links не сработали.
+        window.location.href = `lovequestapp://c/${handle}`;
+
+        // Логика перенаправления, если приложение не открылось
+        setTimeout(function() {
+          // Если через 2.5 секунды пользователь все еще на этой странице,
+          // значит, приложение не установлено.
+          
+          const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+          
+          // ✅ УЛУЧШЕНИЕ: Проверяем, что это Android, чтобы не перенаправлять пользователей с ПК или iPhone
+          if (/android/i.test(userAgent)) {
+            let storeUrl;
+            
+            if (/huawei/i.test(userAgent)) {
+              // Это устройство Huawei -> отправляем в AppGallery
+              storeUrl = appGalleryUrl;
+            } else {
+              // Любой другой Android -> отправляем в RuStore
+              storeUrl = ruStoreUrl;
+            }
+            
+            // Перенаправляем пользователя в нужный магазин
+            window.location.href = storeUrl;
+          }
+          
+        }, 2500); // Задержка в 2.5 секунды
+      }
+      // Если path не начинается с /c/, скрипт просто ничего не делает, и лендинг загружается как обычно.
+    })();
+  </script>
+  <!-- Заголовок и мета-теги будут управляться через JS -->
+  <title data-lang-key="meta_title">Numero - Нумерология, Астрология и Совместимость</title>
+  <meta id="meta-description" name="description" content="Раскройте тайны своей судьбы с Numero. Персональная натальная карта, нумерологический портрет, гороскопы, Таро и поиск совместимости. Скачайте приложение и расшифруйте свой космический код." data-lang-key="meta_description">
+  <meta id="meta-keywords" name="keywords" content="нумерология, астрология, натальная карта, совместимость, Метафорические Карты , гороскоп, эзотерика, numero, скачать numero, приложение нумерология, numerology, astrology, natal chart, compatibility" data-lang-key="meta_keywords">
+
+  <meta property="og:title" content="Numero - Твой Космический Код" data-lang-key="og_title">
+  <meta property="og:description" content="Персональная натальная карта, нумерология и поиск совместимости." data-lang-key="og_description">
+  <meta property="og:image" content="https://vertox1566.github.io/icon.png">
+  <meta property="og:url" content="https://vertox1566.github.io">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- Стили -->
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      line-height: 1.6;
+      margin: 0;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative; /* Для позиционирования переключателя языков */
+    }
+    /* Стили для переключателя языков */
+    .lang-switcher {
+      position: absolute;
+      top: -20px;
+      right: 0;
+      background: #252525;
+      padding: 5px 10px;
+      border-radius: 20px;
+      border: 1px solid #333;
+    }
+    .lang-switcher a {
+      color: #aaa;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 5px;
+      transition: color 0.2s ease;
+    }
+    .lang-switcher a:hover {
+      color: #FFD700;
+    }
+    .lang-switcher a.active {
+      color: #FFD700;
+      cursor: default;
+    }
+    h1 {
+      font-size: 3em;
+      color: #FFD700;
+      margin-bottom: 0;
+    }
+    h2 {
+      font-size: 1.8em;
+      color: #E91E63;
+      margin-top: 40px;
+    }
+    .slogan {
+      font-size: 1.5em;
+      font-style: italic;
+      color: #b0b0b0;
+      margin-top: 5px;
+    }
+    .description {
+      font-size: 1.1em;
+      text-align: left;
+      margin-top: 30px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+    }
+    li {
+      margin-bottom: 15px;
+      font-size: 1.1em;
+    }
+    li::before {
+      content: '✨';
+      margin-right: 10px;
+    }
+    .final-call {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-top: 40px;
+    }
+    .languages {
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #888;
+    }
+    .download-button {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 15px 30px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #121212;
+      background-color: #FFD700;
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+    .download-button:hover {
+      transform: scale(1.05);
+    }
+    .app-icon {
+      width: 150px;
+      height: 150px;
+      border-radius: 25px;
+      margin-bottom: 20px;
+    }
+    .gallery {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    .gallery img {
+      width: 180px;
+      height: auto;
+      border-radius: 20px;
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      margin-top: 40px;
+      border-radius: 20px;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .testimonials {
+      margin-top: 60px;
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: left;
+    }
+    .testimonial {
+      margin-bottom: 20px;
+    }
+    .testimonial p {
+      font-style: italic;
+      color: #ccc;
+    }
+    .testimonial span {
+      display: block;
+      margin-top: 5px;
+      font-size: 0.9em;
+      color: #999;
+    }
+    footer {
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+      font-size: 0.9em;
+      color: #888;
+    }
+    footer a {
+      color: #aaa;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  <!-- Микроразметка для поисковиков (остается без изменений) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "Numero",
+    "operatingSystem": "ANDROID",
+    "applicationCategory": "LifestyleApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "RUB"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "2143"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ -->
+    <div class="lang-switcher">
+      <a href="#" id="lang-ru" onclick="setLanguage('ru'); return false;">RU</a> |
+      <a href="#" id="lang-en" onclick="setLanguage('en'); return false;">EN</a>
+    </div>
+
+    <img src="icon.png" alt="Numero App Icon" class="app-icon">
+    <h1>Numero</h1>
+    <p class="slogan" data-lang-key="slogan">Твой Космический Код. Расшифруй его.</p>
+
+    <div class="description">
+      <p data-lang-key="desc_p1">
+        Задумывался ли ты, что дата твоего рождения — это не просто цифры, а ключ к твоей судьбе? Что звезды в момент твоего первого вдоха начертали карту твоего пути? <strong>Numero</strong> — это не просто приложение. Это твой персональный оракул и проводник в мир сакральных знаний, где древняя мудрость нумерологии встречается с безграничной вселенной астрологии.
+      </p>
+
+      <h2 data-lang-key="what_awaits">Что ждет тебя внутри:</h2>
+      <ul>
+        <li data-lang-key="feature1"><strong>Глубинный Нумерологический Портрет:</strong> Узнай свое Число Жизненного Пути, Число Судьбы и Число Души. Пойми свои скрытые таланты, истинные желания и кармические задачи.</li>
+        <li data-lang-key="feature2"><strong>Персональная Натальная Карта:</strong> Мы рассчитаем точное положение планет в момент твоего рождения, чтобы создать уникальный космический паспорт.</li>
+        <li data-lang-key="feature3"><strong>Астрологическая Совместимость:</strong> Открой, как взаимодействуют твои планеты с энергиями других людей. Найди свою космическую пару.</li>
+        feature4: "<strong>Метафорические Карты:</strong> Получай персональный расклад из трех карт — Прошлое, Настоящее, Будущее — для глубокого самоанализа и поиска ответов внутри себя.",
+        <li data-lang-key="feature5"><strong>Поиск Единомышленников:</strong> Находи людей по всему миру, в твоей стране или даже рядом, учитывая не только геолокацию, но и общность эзотерических интересов.</li>
+      </ul>
+
+      <p class="final-call" data-lang-key="final_call">
+        Твой путь уже предначертан. Готов ли ты его узнать?
+      </p>
+      <p class="languages" data-lang-key="supported_langs">
+        Поддерживаемые языки: Русский, English. Only Android
+      </p>
+    </div>
+
+    <!-- Кнопка -->
+    <a href="https://github.com/Vertox1566/vertox1566.github.io/releases/download/v1.0.5/app-release.apk" class="download-button" data-lang-key="download_button">
+      Скачать Numero (v1.0.5)
+    </a>
+
+    <!-- Скриншоты -->
+    <h2 data-lang-key="screenshots_title">Скриншоты приложения</h2>
+    <div class="gallery">
+      <img src="screenshot1.jpg" data-alt-key="alt_screen1" alt="Главный экран">
+      <img src="screenshot2.jpg" data-alt-key="alt_screen2" alt="Нумерологический портрет">
+      <img src="screenshot3.jpg" data-alt-key="alt_screen3" alt="Натальная карта">
+      <img src="screenshot4.jpg" data-alt-key="alt_screen4" alt="Совместимость">
+    </div>
+
+    <!-- Видео -->
+    <h2 data-lang-key="video_title">Посмотри, как это работает</h2>
+    <div style="text-align:center; margin-top: 30px;">
+      <div onclick="openModal()" style="position:relative; display:inline-block; cursor:pointer;">
+        <img src="https://img.youtube.com/vi/z5YNe5AG6PA/maxresdefault.jpg" data-alt-key="alt_video_preview" alt="Видео-превью" style="width:300px; border-radius:20px; box-shadow:0 5px 15px rgba(0,0,0,0.5); transition: transform 0.3s ease;">
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:3em; color:white; text-shadow:0 0 10px #000;">▶</div>
+      </div>
+    </div>
+
+    <!-- Модальное окно -->
+    <div id="videoModal" style="display:none; position:fixed; z-index:9999; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.9); animation: fadeIn 0.3s ease;">
+      <div id="modalContent" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); max-width:360px; width:90%; animation: slideIn 0.3s ease;">
+        <iframe id="videoFrame" width="100%" height="640" style="border-radius: 20px;" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+        <div style="margin-top: 12px; text-align:center; font-size: 0.95em; color: #FFD700;" data-lang-key="video_views">🔥 3,274 просмотров</div>
+        <div style="text-align:center; margin-top: 20px;">
+          <a href="https://www.youtube.com/@yourchannel" target="_blank" style="display:inline-block; padding: 10px 25px; background-color: #FFD700; color: #121212; font-weight: bold; font-size: 1em; border-radius: 30px; text-decoration: none; transition: background-color 0.3s ease;" data-lang-key="watch_more_button">Смотреть ещё ▶</a>
+        </div>
+        <button onclick="closeModal()" style="position:absolute; top:-40px; right:-10px; background:none; border:none; font-size:2.5em; color:#fff; cursor:pointer;">✕</button>
+      </div>
+    </div>
+    
+    <style>
+      @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+      @keyframes slideIn { from {transform: translate(-50%, -60%); opacity: 0;} to {transform: translate(-50%, -50%); opacity: 1;} }
+    </style>
+
+    <!-- Отзывы -->
+    <h2 data-lang-key="testimonials_title">Отзывы пользователей</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p data-lang-key="review1_text">«Numero открыло мне глаза на то, кто я есть на самом деле. Я наконец поняла свои сильные стороны!»</p>
+        <span data-lang-key="review1_author">— Анастасия, Москва</span>
+      </div>
+      <div class="testimonial">
+        <p data-lang-key="review2_text">«Совместимость с партнёром попала в точку. Невероятно точно и интересно!»</p>
+        <span data-lang-key="review2_author">— Олег, Минск</span>
+      </div>
+      <div class="testimonial">
+        <p data-lang-key="review3_text">«Люблю расклады Таро утром — как личный совет от Вселенной. Must-have!»</p>
+        <span data-lang-key="review3_author">— Диана, Киев</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p data-lang-key="footer_copyright">© 2024 Numero. Все права защищены.</p>
+    <p>
+      <a href="https://dontisolate.com/privacy" data-lang-key="footer_privacy">Политика Конфиденциальности</a> |
+      <a href="https://dontisolate.com/terms" data-lang-key="footer_terms">Условия Использования</a> |
+      <!-- ✅ Ссылка на условия оплаты -->
+      <a href="offer.html" data-lang-key="footer_offer">Условия оплаты и возврата</a>
+    </p>
+
+    <!-- ✅ Блок с реквизитами -->
+    <div class="contacts">
+      <h3 data-lang-key="footer_contacts_title" style="color: #ccc; font-size: 1.1em; margin-top: 20px;">Реквизиты и контакты</h3>
+      <p data-lang-key="footer_executor_info">Исполнитель: [ВАШЕ ПОЛНОЕ ФИО] (Самозанятый)</p>
+      <p data-lang-key="footer_inn_info">ИНН: [ВАШ ИНН]</p>
+      <p data-lang-key="footer_email_info">Email для поддержки: [ВАШ EMAIL]</p>
+    </div>
+  </footer>
+
+  <!-- ====================================================== -->
+  <!-- ============ СКРИПТ ДЛЯ ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА ============ -->
+  <!-- ====================================================== -->
+  <script>
+    // 1. ХРАНИЛИЩЕ ПЕРЕВОДОВ
+    const translations = {
+      ru: {
+        meta_title: "Numero - Нумерология, Астрология и Совместимость",
+        meta_description: "Раскройте тайны своей судьбы с Numero. Персональная натальная карта, нумерологический портрет, гороскопы, Таро и поиск совместимости. Скачайте приложение и расшифруйте свой космический код.",
+        meta_keywords: "нумерология, астрология, натальная карта, совместимость, Метафорические Карты, гороскоп, эзотерика, numero, скачать numero, приложение нумерология",
+        og_title: "Numero - Твой Космический Код",
+        og_description: "Персональная натальная карта, нумерология и поиск совместимости.",
+        slogan: "Твой Космический Код. Расшифруй его.",
+        desc_p1: "Задумывался ли ты, что дата твоего рождения — это не просто цифры, а ключ к твоей судьбе? Что звезды в момент твоего первого вдоха начертали карту твоего пути? <strong>Numero</strong> — это не просто приложение. Это твой персональный оракул и проводник в мир сакральных знаний, где древняя мудрость нумерологии встречается с безграничной вселенной астрологии.",
+        what_awaits: "Что ждет тебя внутри:",
+        feature1: "<strong>Глубинный Нумерологический Портрет:</strong> Узнай свое Число Жизненного Пути, Число Судьбы и Число Души. Пойми свои скрытые таланты, истинные желания и кармические задачи.",
+        feature2: "<strong>Персональная Натальная Карта:</strong> Мы рассчитаем точное положение планет в момент твоего рождения, чтобы создать уникальный космический паспорт.",
+        feature3: "<strong>Астрологическая Совместимость:</strong> Открой, как взаимодействуют твои планеты с энергиями других людей. Найди свою космическую пару.",
+        feature4: "<strong>Метафорические Карты:</strong> Получай персональный расклад из трех карт — Прошлое, Настоящее, Будущее — для глубокого самоанализа и поиска ответов внутри себя.",,
+        feature5: "<strong>Поиск Единомышленников:</strong> Находи людей по всему миру, в твоей стране или даже рядом, учитывая не только геолокацию, но и общность эзотерических интересов.",
+        final_call: "Твой путь уже предначертан. Готов ли ты его узнать?",
+        supported_langs: "Поддерживаемые языки: Русский, English. Only Android",
+        download_button: "Скачать Numero (v1.0.0)",
+        screenshots_title: "Скриншоты приложения",
+        alt_screen1: "Главный экран",
+        alt_screen2: "Нумерологический портрет",
+        alt_screen3: "Натальная карта",
+        alt_screen4: "Совместимость",
+        video_title: "Посмотри, как это работает",
+        alt_video_preview: "Видео-превью",
+        video_views: "🔥 3,274 просмотров",
+        watch_more_button: "Смотреть ещё ▶",
+        testimonials_title: "Отзывы пользователей",
+        review1_text: "«Numero открыло мне глаза на то, кто я есть на самом деле. Я наконец поняла свои сильные стороны!»",
+        review1_author: "— Анастасия, Москва",
+        review2_text: "«Совместимость с партнёром попала в точку. Невероятно точно и интересно!»",
+        review2_author: "— Олег, Минск",
+        review3_text: "«Люблю Метафорические Карты утром — как личный совет от Вселенной. Must-have!»",
+        review3_author: "— Диана, Киев",
+        footer_copyright: "© 2024 Numero. Все права защищены.",
+        footer_privacy: "Политика Конфиденциальности",
+        footer_terms: "Условия Использования",
+        footer_offer: "Условия оплаты и возврата",
+        footer_contacts_title: "Реквизиты и контакты",
+        footer_executor_info: "Исполнитель: Ермолаев Роман Сергеевич (Самозанятый)",
+        footer_inn_info: "ИНН: 502498612320",
+        footer_email_info: "Email для поддержки: ermolo144@gmail.com"
+      },
+      en: {
+        meta_title: "Numero - Numerology, Astrology, and Compatibility",
+        meta_description: "Unlock the secrets of your destiny with Numero. Personal natal chart, numerological portrait, horoscopes, Tarot, and compatibility search. Download the app and decipher your cosmic code.",
+        meta_keywords: "numerology, astrology, natal chart, compatibility, tarot, horoscope, esoterics, numero, download numero, numerology app",
+        og_title: "Numero - Your Cosmic Code",
+        og_description: "Personal natal chart, numerology, and compatibility search.",
+        slogan: "Your Cosmic Code. Decipher it.",
+        desc_p1: "Have you ever wondered if your birth date is more than just numbers, but a key to your destiny? That the stars at the moment of your first breath charted the map of your journey? <strong>Numero</strong> is not just an app. It is your personal oracle and guide to the world of sacred knowledge, where the ancient wisdom of numerology meets the boundless universe of astrology.",
+        what_awaits: "What awaits you inside:",
+        feature1: "<strong>In-depth Numerological Portrait:</strong> Discover your Life Path Number, Destiny Number, and Soul Number. Understand your hidden talents, true desires, and karmic tasks.",
+        feature2: "<strong>Personal Natal Chart:</strong> We will calculate the exact position of the planets at the moment of your birth to create a unique cosmic passport.",
+        feature3: "<strong>Astrological Compatibility:</strong> Discover how your planets interact with the energies of other people. Find your cosmic match.",
+        feature4: "<strong>Metaphorical Cards:</strong> Receive a personal three-card spread — Past, Present, Future — for deep self-reflection and finding answers within.",
+        feature5: "<strong>Find Like-Minded People:</strong> Find people around the world, in your country, or even nearby, considering not only geolocation but also shared esoteric interests.",
+        final_call: "Your path is already written. Are you ready to discover it?",
+        supported_langs: "Supported languages: Russian, English. Only Android",
+        download_button: "Download Numero (v1.0.0)",
+        screenshots_title: "Application Screenshots",
+        alt_screen1: "Main screen",
+        alt_screen2: "Numerological portrait",
+        alt_screen3: "Natal chart",
+        alt_screen4: "Compatibility",
+        video_title: "See how it works",
+        alt_video_preview: "Video preview",
+        video_views: "🔥 3,274 views",
+        watch_more_button: "Watch More ▶",
+        testimonials_title: "User Reviews",
+        review1_text: "\"Numero opened my eyes to who I really am. I finally understood my strengths!\"",
+        review1_author: "— Anastasia, Moscow",
+        review2_text: "\"The compatibility with my partner was spot on. Incredibly accurate and interesting!\"",
+        review2_author: "— Oleg, Minsk",
+        review3_text: "\"I love the morning Tarot readings — like personal advice from the Universe. A must-have!\"",
+        review3_author: "— Diana, Kyiv",
+        footer_copyright: "© 2024 Numero. All rights reserved.",
+        footer_privacy: "Privacy Policy",
+        footer_terms: "Terms of Use",
+        footer_offer: "Payment and Refund Policy",
+        footer_contacts_title: "Details and Contacts",
+        footer_executor_info: "Executor: Ermolaev Roman Sergeevich (Self-employed)",
+        footer_inn_info: "TIN: 502498612320",
+        footer_email_info: "Support Email: ermolo144@gmail.com"
+      }
+    };
+
+    // 2. ФУНКЦИЯ УСТАНОВКИ ЯЗЫКА
+    function setLanguage(lang) {
+      // Устанавливаем язык для всей страницы
+      document.documentElement.lang = lang;
+      
+      // Обновляем мета-теги
+      document.querySelector('title').textContent = translations[lang].meta_title;
+      document.getElementById('meta-description').setAttribute('content', translations[lang].meta_description);
+      document.getElementById('meta-keywords').setAttribute('content', translations[lang].meta_keywords);
+      document.querySelector('meta[property="og:title"]').setAttribute('content', translations[lang].og_title);
+      document.querySelector('meta[property="og:description"]').setAttribute('content', translations[lang].og_description);
+
+      // Находим все элементы, которые нужно перевести
+      const elementsToTranslate = document.querySelectorAll('[data-lang-key]');
+      elementsToTranslate.forEach(element => {
+        const key = element.getAttribute('data-lang-key');
+        if (translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+      
+      // Находим все картинки с alt-тегами для перевода
+      const imagesToTranslate = document.querySelectorAll('[data-alt-key]');
+      imagesToTranslate.forEach(img => {
+          const key = img.getAttribute('data-alt-key');
+          if (translations[lang][key]) {
+              img.alt = translations[lang][key];
+          }
+      });
+
+      // Сохраняем выбор пользователя в localStorage
+      localStorage.setItem('language', lang);
+      
+      // Обновляем активную кнопку
+      document.getElementById('lang-ru').classList.remove('active');
+      document.getElementById('lang-en').classList.remove('active');
+      document.getElementById('lang-' + lang).classList.add('active');
+    }
+
+    // 3. ЛОГИКА ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+    document.addEventListener('DOMContentLoaded', () => {
+      // Определяем язык
+      const savedLang = localStorage.getItem('language');
+      const browserLang = navigator.language.split('-')[0]; // Берем 'ru' из 'ru-RU'
+      
+      // Выбираем язык: сохраненный > язык браузера (если 'en') > по умолчанию 'ru'
+      let currentLang = savedLang || (browserLang === 'en' ? 'en' : 'ru');
+      
+      setLanguage(currentLang);
+    });
+    
+    // --- Скрипты для модального окна (без изменений) ---
+    function openModal() {
+      const modal = document.getElementById('videoModal');
+      const frame = document.getElementById('videoFrame');
+      modal.style.display = 'block';
+      frame.src = "https://www.youtube.com/embed/z5YNe5AG6PA?autoplay=1";
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('videoModal');
+      const frame = document.getElementById('videoFrame');
+      modal.style.display = 'none';
+      frame.src = "";
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('videoModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    });
+
+  </script>
+</body>
+</html>
